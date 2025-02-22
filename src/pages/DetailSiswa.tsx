@@ -8,6 +8,7 @@ type SP = {
   jenisPelanggaran: string;
   keterangan: string;
   tanggal: string;
+  admin: { name: string };
 };
 
 const formatTanggal = (tanggal: string) => {
@@ -64,6 +65,7 @@ const DetailSiswa = () => {
             <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Tanggal</TableCell>
             <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Jenis Pelanggaran</TableCell>
             <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Keterangan</TableCell>
+            <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Diberikan oleh</TableCell>
           </TableRow>
         </TableHeader>
 
@@ -75,6 +77,9 @@ const DetailSiswa = () => {
                 <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">{formatTanggal(sp.tanggal)}</TableCell>
                 <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">{sp.jenisPelanggaran}</TableCell>
                 <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">{sp.keterangan}</TableCell>
+                <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                  {sp.admin?.name || "Tidak diketahui"}
+                </TableCell>
               </TableRow>
             ))
           ) : (
