@@ -4,10 +4,11 @@ import { Link, useLocation } from "react-router";
 // Assume these icons are imported from an icon library
 import {
   ChevronDownIcon,
-  GridIcon,
+  FileIcon,
   HorizontaLDots,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
+import { FileQuestion, HomeIcon, PlusSquareIcon } from "lucide-react";
 
 type NavItem = {
   name: string;
@@ -18,13 +19,25 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    icon: <GridIcon />,
-    name: "Sidebar",
-    subItems: [{ name: "Tambah Siswa", path: "dashboard/upload-siswa", pro: false },
-    { name: "Panduan Website", path: "dashboard/panduan", pro: false },
-    { name: "Export Data", path: "dashboard/export-data", pro: false }
-    ],
+    icon: <HomeIcon />,
+    name: "Dashboard",
+    path: "/dashboard",
   },
+  {
+    icon: <PlusSquareIcon />,
+    name: "Tambah Siswa",
+    path: "/dashboard/upload-siswa",
+  },
+  {
+    icon: <FileQuestion />,
+    name: "Panduan Website",
+    path: "/dashboard/panduan",
+  },
+  {
+    icon: <FileIcon />,
+    name: "Export Data",
+    path: "/dashboard/export-data",
+  }
 ];
 
 const AppSidebar: React.FC = () => {
