@@ -83,7 +83,11 @@ const DetailSiswa = () => {
               </TableRow>
             ))
           ) : (
-            <p className="text-gray-500 mt-4 dark:text-white-400">Belum ada data leaderboard SP.</p>
+            <TableRow>
+              <TableCell className="py-3  text-gray-500 dark:text-gray-400">
+                Belum ada data leaderboard SP.
+              </TableCell>
+            </TableRow>
           )}
         </TableBody>
       </Table>
