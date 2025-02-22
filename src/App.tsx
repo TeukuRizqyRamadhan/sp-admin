@@ -8,6 +8,7 @@ import ExportData from "./pages/ExportData";
 import UploadSiswa from "./pages/UploadSiswa";
 import Panduan from "./pages/Panduan";
 import DetailSiswa from "./pages/DetailSiswa";
+import UploadFingerprint from "./pages/UploadFingerprint";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="dashboard/upload-siswa" element={<UploadSiswa />} />
             <Route path="/dashboard/panduan" element={<Panduan />} />
             <Route path="/dashboard/export-data" element={<ExportData />} />
+            <Route path="/dashboard/upload-fingerprint" element={<UploadFingerprint />} />
           </Route>
 
           {/* Fallback Route */}

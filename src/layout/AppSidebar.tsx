@@ -8,7 +8,7 @@ import {
   HorizontaLDots,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
-import { FileQuestion, HomeIcon, PlusSquareIcon } from "lucide-react";
+import { FileQuestion, HomeIcon, PlusSquareIcon, UploadCloudIcon } from "lucide-react";
 
 type NavItem = {
   name: string;
@@ -37,6 +37,11 @@ const navItems: NavItem[] = [
     icon: <FileIcon />,
     name: "Export Data",
     path: "/dashboard/export-data",
+  },
+  {
+    icon: <UploadCloudIcon />,
+    name: "Upload Fingerprint",
+    path: "/dashboard/upload-fingerprint",
   }
 ];
 

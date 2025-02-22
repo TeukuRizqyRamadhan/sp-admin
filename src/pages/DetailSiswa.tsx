@@ -9,6 +9,7 @@ type SP = {
   keterangan: string;
   tanggal: string;
   admin: { name: string };
+  absent?: string;
 };
 
 const formatTanggal = (tanggal: string) => {
@@ -58,7 +59,7 @@ const DetailSiswa = () => {
       <p className="text-lg dark:text-white">Nama: {nama}</p>
       <p className="text-lg dark:text-white">Kelas: {kelas}</p>
 
-      <Table className="mt-5 mb-5">
+      <Table className="mt-5 mb-5 overflow-x-auto">
         <TableHeader className="border-gray-100 dark:border-gray-800 border-y">
           <TableRow>
             <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">No</TableCell>
@@ -66,6 +67,7 @@ const DetailSiswa = () => {
             <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Jenis Pelanggaran</TableCell>
             <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Keterangan</TableCell>
             <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Diberikan oleh</TableCell>
+            <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Fingerprint</TableCell>
           </TableRow>
         </TableHeader>
 
@@ -80,11 +82,14 @@ const DetailSiswa = () => {
                 <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                   {sp.admin?.name || "Tidak diketahui"}
                 </TableCell>
+                <TableCell className={`py-3 text-gray-500 text-theme-sm dark:text-gray-400 ${sp.absent === "True" ? "text-red-500" : "text-green-500"}`}>
+                  {sp.absent === "True" ? "Belum Fingerprint" : "Sudah Fingerprint"}
+                </TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell className="py-3  text-gray-500 dark:text-gray-400">
+              <TableCell className="py-3 text-gray-500 dark:text-gray-400">
                 Belum ada data leaderboard SP.
               </TableCell>
             </TableRow>
@@ -92,8 +97,26 @@ const DetailSiswa = () => {
         </TableBody>
       </Table>
 
-      {/* <h2 className="text-2xl font-bold mt-4 dark:text-white">Absensi Fingerprint (dummy)</h2>
-      <p className="text-lg dark:text-white">Fitur belum tersedia</p> */}
+      <h2 className="text-2xl font-bold mt-4 dark:text-white">Data Fingerprint</h2>
+      <Table className="mt-5 mb-5 overflow-x-auto">
+        <TableHeader className="border-gray-100 dark:border-gray-800 border-y">
+          <TableRow>
+            <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">No</TableCell>
+            <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Tanggal</TableCell>
+            <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Waktu</TableCell>
+            <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Fingerprint</TableCell>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody className="divide-y divide-gray-100 dark:divide-gray-800">
+          <TableRow key="">
+            <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">1</TableCell>
+            <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">2025-05-02</TableCell>
+            <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">06.20</TableCell>
+            <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">Sudah Fingerprint</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 };
