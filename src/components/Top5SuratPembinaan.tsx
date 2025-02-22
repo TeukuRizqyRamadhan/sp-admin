@@ -90,9 +90,9 @@ export default function Top5SuratPembinaan() {
                     <Badge
                       size="sm"
                       color={
-                        item.spCount >= 5
+                        item.spCount >= 10
                           ? "error"
-                          : item.spCount >= 3
+                          : item.spCount >= 5
                             ? "warning"
                             : "success"
                       }

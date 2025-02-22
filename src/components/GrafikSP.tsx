@@ -41,7 +41,7 @@ export default function GrafikSP() {
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: "39%",
+        columnWidth: "80%",
         borderRadius: 5,
         borderRadiusApplication: "end",
       },
