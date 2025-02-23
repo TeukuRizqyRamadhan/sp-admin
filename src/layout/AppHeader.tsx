@@ -138,9 +138,20 @@ const AppHeader: React.FC = () => {
           </button>
 
           <Link to="/dashboard" className="lg:hidden">
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">
-              Surat Pembinaan
-            </p>
+            <img
+              className="dark:hidden"
+              src="images/logo/logo.png"
+              alt="Logo"
+              width={150}
+              height={40}
+            />
+            <img
+              className="hidden dark:block"
+              src="images/logo/logo-dark.png"
+              alt="Logo"
+              width={150}
+              height={40}
+            />
           </Link>
 
           <button

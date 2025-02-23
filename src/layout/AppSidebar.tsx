@@ -222,19 +222,30 @@ const AppSidebar: React.FC = () => {
         className={`py-8 flex ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
           }`}
       >
-        <Link to="/dashboard">
+        <Link to="/dashboard" className="">
           {isExpanded || isHovered || isMobileOpen ? (
             <>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                Surat Pembinaan
-              </p>
+              <img
+                className="dark:hidden"
+                src="images/logo/logo.png"
+                alt="Logo"
+                width={150}
+                height={40}
+              />
+              <img
+                className="hidden dark:block"
+                src="images/logo/logo-dark.png"
+                alt="Logo"
+                width={150}
+                height={40}
+              />
             </>
           ) : (
             <img
-              src="../../src/assets/SMP.png"
+              src="images/logo/logo-icon.svg"
               alt="Logo"
-              width={64}
-              height={64}
+              width={32}
+              height={32}
             />
           )}
         </Link>
