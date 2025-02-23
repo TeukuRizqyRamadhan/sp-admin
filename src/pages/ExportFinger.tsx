@@ -19,13 +19,14 @@ export default function ExportFinger() {
     return true;
   };
 
-  const handleExport = async (type: string) => {
+  const handleExport = async () => {
     if (!validateDate()) return;
 
-    const formattedDate = filter === "tahun" ? getYear(date!) : format(date!, filter === "bulan" ? "yyyy-MM" : "yyyy-MM-dd");
+    const formattedDate =
+      filter === "tahun" ? getYear(date!) : format(date!, filter === "bulan" ? "yyyy-MM" : "yyyy-MM-dd");
 
     try {
-      const response = await API.get(`/siswa/export-${type}`, {
+      const response = await API.get(`/siswa/export-fingerprint`, {
         params: { filter, date: formattedDate },
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         responseType: "blob",
@@ -34,7 +35,7 @@ export default function ExportFinger() {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `data-${filter}-${formattedDate}.${type === "sp" ? "csv" : "xlsx"}`);
+      link.setAttribute("download", `data-${filter}-${formattedDate}.xlsx`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -51,7 +52,7 @@ export default function ExportFinger() {
       <PageBreadcrumb pageTitle="Export Data" />
       <div className="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900 p-5 lg:p-6">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-xl font-bold mb-2 dark:text-white">Export Fingerprint Siswa (coming soon)</h2>
+          <h2 className="text-xl font-bold mb-2 dark:text-white">Export Fingerprint Siswa</h2>
           <p className="text-gray-600 mb-4 dark:text-gray-400">Silakan pilih rentang waktu</p>
 
           <div className="mt-2 flex flex-col gap-2">
@@ -93,8 +94,9 @@ export default function ExportFinger() {
           </div>
 
           <div className="flex justify-end mt-4">
-            <button onClick={() => handleExport("sp")} className="bg-blue-500 text-white px-4 py-2 ml-2 rounded hover:bg-blue-600 transition">Export CSV</button>
-            <button onClick={() => handleExport("excel")} className="bg-green-500 text-white px-4 py-2 ml-2 rounded hover:bg-green-600 transition">Export Excel</button>
+            <button onClick={handleExport} className="bg-green-500 text-white px-4 py-2 ml-2 rounded hover:bg-green-600 transition">
+              Export Excel
+            </button>
           </div>
         </div>
       </div>
