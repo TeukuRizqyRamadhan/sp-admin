@@ -6,6 +6,7 @@ import Papa from "papaparse";
 import { useNavigate } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { UploadCloud, FileText, Loader2 } from "lucide-react";
+import Swal from "sweetalert2";
 
 type FingerprintData = {
   noID: string;
@@ -76,19 +77,53 @@ export default function UploadFingerprint() {
 
   const handleUpload = async () => {
     if (dataFingerprint.length === 0) {
-      alert("Tidak ada data yang valid untuk diunggah.");
+      Swal.fire({
+        icon: "warning",
+        title: "Tidak Ada Data!",
+        text: "Pastikan file CSV berisi data yang valid sebelum mengunggah.",
+      });
       return;
     }
 
     setLoading(true);
     try {
-      await API.post("/siswa/upload-fingerprint", { data: dataFingerprint });
-      alert("Data fingerprint berhasil diunggah!");
+      const response = await API.post("/siswa/upload-fingerprint", { data: dataFingerprint });
+
+      // Backend harus mengembalikan jumlah data baru yang berhasil disimpan
+      const { totalUploaded, totalExisting } = response.data;
+
+      if (totalUploaded === 0 && totalExisting > 0) {
+        Swal.fire({
+          icon: "info",
+          title: "Semua Data Sudah Ada",
+          text: "Tidak ada data baru yang diunggah karena semua data sudah ada di database.",
+        });
+      } else if (totalUploaded > 0 && totalExisting > 0) {
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil Sebagian!",
+          text: `Sebagian data sudah ada di database (${totalExisting}), dan sebagian berhasil diunggah (${totalUploaded})!`,
+          confirmButtonColor: "#3085d6",
+        });
+      } else if (totalUploaded > 0 && totalExisting === 0) {
+        Swal.fire({
+          icon: "success",
+          title: "Semua Data Berhasil Diupload!",
+          text: `Semua data berhasil diunggah ke database (${totalUploaded} data).`,
+          confirmButtonColor: "#3085d6",
+        });
+      }
+
       setDataFingerprint([]);
       setFileName("");
     } catch (error) {
       console.error("Error uploading data:", error);
-      alert("Gagal mengunggah data fingerprint.");
+
+      Swal.fire({
+        icon: "error",
+        title: "Gagal Mengunggah!",
+        text: "Terjadi kesalahan saat mengunggah data fingerprint.",
+      });
     } finally {
       setLoading(false);
     }
