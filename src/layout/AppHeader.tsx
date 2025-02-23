@@ -5,6 +5,8 @@ import { useSidebar } from "../context/SidebarContext";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import logo from "../../src/assets/logo.png"
+import logoDark from "../../src/assets/logo-dark.png"
 
 const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
@@ -140,14 +142,14 @@ const AppHeader: React.FC = () => {
           <Link to="/dashboard" className="lg:hidden">
             <img
               className="dark:hidden"
-              src="./images/logo/logo.png"
+              src={logo}
               alt="Logo"
               width={150}
               height={40}
             />
             <img
               className="hidden dark:block"
-              src="./images/logo/logo-dark.png"
+              src={logoDark}
               alt="Logo"
               width={150}
               height={40}
