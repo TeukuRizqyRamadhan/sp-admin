@@ -17,6 +17,7 @@ export default function UploadSiswa() {
   const [fileName, setFileName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -24,6 +25,20 @@ export default function UploadSiswa() {
       navigate("/");
     }
   }, [navigate]);
+
+  useEffect(() => {
+    // Ambil data role pengguna dari API atau localStorage
+    const fetchUserRole = async () => {
+      try {
+        const response = await API.get("/admin/me"); // Sesuaikan endpoint
+        setRole(response.data.name.role);
+      } catch (error) {
+        console.error("Gagal mengambil data role", error);
+      }
+    };
+
+    fetchUserRole();
+  }, []);
 
   const onDrop = (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
@@ -70,6 +85,20 @@ export default function UploadSiswa() {
       setLoading(false);
     }
   };
+
+  if (role === null) {
+    return <p className="text-center text-gray-500">Memuat...</p>;
+  }
+
+  if (role === "2") {
+    return (
+      <div className="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900 p-5 lg:p-6">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-xl font-bold text-black text-center dark:text-white">Maaf, selain Admin tidak dapat mengakses halaman ini</h2>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

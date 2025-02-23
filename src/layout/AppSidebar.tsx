@@ -10,7 +10,7 @@ import {
   HorizontaLDots,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
-import { FileQuestion, HomeIcon, PlusSquareIcon, UploadCloudIcon } from "lucide-react";
+import { FileQuestion, HomeIcon, LockKeyholeIcon, PlusSquareIcon, UploadCloudIcon } from "lucide-react";
 
 type NavItem = {
   name: string;
@@ -49,6 +49,11 @@ const navItems: NavItem[] = [
     icon: <UploadCloudIcon />,
     name: "Upload Fingerprint",
     path: "/dashboard/upload-fingerprint",
+  },
+  {
+    icon: <LockKeyholeIcon />,
+    name: "Ganti Password",
+    path: "/dashboard/change-password",
   }
 ];
 

@@ -59,7 +59,7 @@ const AppHeader: React.FC = () => {
         if (!response.ok) throw new Error("Gagal mengambil data admin");
 
         const data = await response.json();
-        setAdminName(data.name); // Sesuaikan dengan response API
+        setAdminName(data.name.name); // Sesuaikan dengan response API
       } catch (error) {
         console.error(error);
       }

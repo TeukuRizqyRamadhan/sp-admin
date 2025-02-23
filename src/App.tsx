@@ -10,6 +10,7 @@ import DetailSiswa from "./pages/DetailSiswa";
 import UploadFingerprint from "./pages/UploadFingerprint";
 import ExportSP from "./pages/ExportSP";
 import ExportFinger from "./pages/ExportFinger";
+import ChangePassword from "./pages/ChangePassword";
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
             <Route path="/dashboard/export-sp" element={<ExportSP />} />
             <Route path="/dashboard/export-finger" element={<ExportFinger />} />
             <Route path="/dashboard/upload-fingerprint" element={<UploadFingerprint />} />
+            <Route path="/dashboard/change-password" element={<ChangePassword />} />
           </Route>
 
           {/* Fallback Route */}
