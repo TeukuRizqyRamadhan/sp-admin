@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, getYear } from "date-fns";
 
-export default function ExportData() {
+export default function ExportFinger() {
   const [filter, setFilter] = useState("hari");
   const [date, setDate] = useState<Date | null>(null);
 
@@ -51,7 +51,7 @@ export default function ExportData() {
       <PageBreadcrumb pageTitle="Export Data" />
       <div className="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900 p-5 lg:p-6">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-xl font-bold mb-2 dark:text-white">Export Data Surat Pembinaan</h2>
+          <h2 className="text-xl font-bold mb-2 dark:text-white">Export Fingerprint Siswa (coming soon)</h2>
           <p className="text-gray-600 mb-4 dark:text-gray-400">Silakan pilih rentang waktu</p>
 
           <div className="mt-2 flex flex-col gap-2">

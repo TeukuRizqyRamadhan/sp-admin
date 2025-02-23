@@ -4,11 +4,12 @@ import NotFound from "./pages/OtherPage/NotFound";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
-import ExportData from "./pages/ExportData";
 import UploadSiswa from "./pages/UploadSiswa";
 import Panduan from "./pages/Panduan";
 import DetailSiswa from "./pages/DetailSiswa";
 import UploadFingerprint from "./pages/UploadFingerprint";
+import ExportSP from "./pages/ExportSP";
+import ExportFinger from "./pages/ExportFinger";
 
 export default function App() {
   return (
@@ -25,7 +26,8 @@ export default function App() {
             />
             <Route path="dashboard/upload-siswa" element={<UploadSiswa />} />
             <Route path="/dashboard/panduan" element={<Panduan />} />
-            <Route path="/dashboard/export-data" element={<ExportData />} />
+            <Route path="/dashboard/export-sp" element={<ExportSP />} />
+            <Route path="/dashboard/export-finger" element={<ExportFinger />} />
             <Route path="/dashboard/upload-fingerprint" element={<UploadFingerprint />} />
           </Route>
 
