@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, getYear } from "date-fns";
+import "../assets/styles/style.css"; // Tambahkan ini
 
 export default function ExportSP() {
   const [filter, setFilter] = useState("hari");
