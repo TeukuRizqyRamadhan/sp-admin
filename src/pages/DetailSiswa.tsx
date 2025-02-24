@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api/api";
 import { Table, TableHeader, TableRow, TableCell, TableBody } from "../components/ui/table";
-import { CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, Trash2, XCircle } from "lucide-react";
+import Swal from "sweetalert2";
 
 type SP = {
   id: string;
@@ -48,6 +49,7 @@ const DetailSiswa = () => {
   const { id, nama, kelas } = useParams<{ id: string; nama: string; kelas: string }>();
   const [spList, setSpList] = useState<SP[]>([]);
   const [fingerprintList, setFingerprintList] = useState<FingerprintData[]>([]);
+  const [role, setRole] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,16 +64,25 @@ const DetailSiswa = () => {
 
     const fetchFingerprintData = async () => {
       try {
-        const { data } = await API.get<FingerprintData[]>(`/siswa/${id}/fingerprint`); // Menggunakan id
-        console.log("Fingerprint Data:", data); // Log data fingerprint
+        const { data } = await API.get<FingerprintData[]>(`/siswa/${id}/fingerprint`);
         setFingerprintList(data);
       } catch (error) {
         console.error("Error fetching fingerprint data:", error);
       }
     };
 
+    const fetchUserRole = async () => {
+      try {
+        const response = await API.get("/admin/me");
+        setRole(response.data.name.role);
+      } catch (error) {
+        console.error("Gagal mengambil data role", error);
+      }
+    };
+
     fetchDetailSP();
     fetchFingerprintData();
+    fetchUserRole();
   }, [id]);
 
   const checkToken = () => {
@@ -79,6 +90,30 @@ const DetailSiswa = () => {
     if (!token) {
       navigate("/");
     }
+  };
+
+  const handleDeleteSP = async (spId: string) => {
+    Swal.fire({
+      title: "Apakah Anda yakin?",
+      text: "Data ini akan dihapus secara permanen!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await API.delete(`/siswa/delete/${spId}`);
+          setSpList((prev) => prev.filter((sp) => sp.id !== spId));
+          Swal.fire("Dihapus!", "Data berhasil dihapus.", "success");
+        } catch (error) {
+          console.error("Gagal menghapus SP:", error);
+          Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus.", "error");
+        }
+      }
+    });
   };
 
   useEffect(() => {
@@ -99,6 +134,7 @@ const DetailSiswa = () => {
             <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Jenis Pelanggaran</TableCell>
             <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Keterangan</TableCell>
             <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Diberikan oleh</TableCell>
+            {role === "1" && <TableCell isHeader className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">Aksi</TableCell>}
           </TableRow>
         </TableHeader>
 
@@ -113,6 +149,13 @@ const DetailSiswa = () => {
                 <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                   {sp.admin?.name || "Tidak diketahui"}
                 </TableCell>
+                {role === "1" && (
+                  <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                    <button onClick={() => handleDeleteSP(sp.id)} className="text-red-500 hover:text-red-700">
+                      <Trash2 className="w-5 h-5" />
+                    </button>
+                  </TableCell>
+                )}
               </TableRow>
             ))
           ) : (
