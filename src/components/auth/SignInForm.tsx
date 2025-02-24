@@ -47,7 +47,18 @@ export default function SignInForm() {
       <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
         <div>
           <div className="mb-5 sm:mb-8">
-            <img className="mx-auto" src="../src/assets/SMP.png" width={300} alt="Logo SMP" />
+            <img
+              className="mx-auto dark:hidden"
+              src="../src/assets/SMP.png"
+              width={300}
+              alt="Logo SMP"
+            />
+            <img
+              className="mx-auto hidden dark:block "
+              src="../src/assets/SMP-dark.png"
+              width={300}
+              alt="Logo SMP"
+            />
           </div>
           <form onSubmit={handleLogin}>
             <div className="space-y-6">
