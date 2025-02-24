@@ -3,11 +3,11 @@ import RingkasanSuratPembinaan from "../../components/RingkasanSuratPembinaan";
 import GrafikSP from "../../components/GrafikSP";
 import Top5SuratPembinaan from "../../components/Top5SuratPembinaan";
 import PencarianSiswa from "../../components/PencarianSiswa";
+import Informasi from "../../components/Informasi";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-
   const navigate = useNavigate();
   useEffect(() => {
     checkToken();
@@ -21,10 +21,7 @@ export default function Home() {
   };
   return (
     <>
-      <PageMeta
-        title="Surat Pembinaan"
-        description="Surat Pembinaan"
-      />
+      <PageMeta title="Surat Pembinaan" description="Surat Pembinaan" />
       <div className="grid grid-cols-12 gap-4 md:gap-6">
         <div className="col-span-12 space-y-6 xl:col-span-7">
           <RingkasanSuratPembinaan />
@@ -34,7 +31,7 @@ export default function Home() {
 
         <div className="col-span-12 xl:col-span-5">
           <Top5SuratPembinaan />
-
+          <Informasi />
         </div>
 
         <div className="col-span-12">
