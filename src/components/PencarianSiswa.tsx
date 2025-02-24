@@ -21,7 +21,9 @@ export default function PencarianSiswa() {
     setNama(keyword);
     if (keyword.length > 1) {
       try {
-        const { data } = await API.get<Siswa[]>(`/siswa/search?nama=${keyword}`);
+        const { data } = await API.get<Siswa[]>(
+          `/siswa/search?nama=${keyword}`
+        );
         setHasil(data);
       } catch (error) {
         console.error("Error fetching siswa:", error);
@@ -33,13 +35,25 @@ export default function PencarianSiswa() {
 
   const handleBuatSP = async () => {
     if (!selectedSiswa) {
-      return Swal.fire("Peringatan!", "Silakan pilih siswa terlebih dahulu.", "warning");
+      return Swal.fire(
+        "Peringatan!",
+        "Silakan pilih siswa terlebih dahulu.",
+        "warning"
+      );
     }
     if (!jenisPelanggaran) {
-      return Swal.fire("Peringatan!", "Silakan pilih jenis pelanggaran.", "warning");
+      return Swal.fire(
+        "Peringatan!",
+        "Silakan pilih jenis pelanggaran.",
+        "warning"
+      );
     }
     if (!keterangan.trim()) {
-      return Swal.fire("Peringatan!", "Keterangan tidak boleh kosong!", "warning");
+      return Swal.fire(
+        "Peringatan!",
+        "Keterangan tidak boleh kosong!",
+        "warning"
+      );
     }
 
     try {
@@ -59,7 +73,11 @@ export default function PencarianSiswa() {
           keterangan,
         });
 
-        Swal.fire("Berhasil!", "Surat Pembinaan berhasil dibuat.", "success").then(() => {
+        Swal.fire(
+          "Berhasil!",
+          "Surat Pembinaan berhasil dibuat.",
+          "success"
+        ).then(() => {
           window.location.reload();
         });
       }
@@ -77,9 +95,13 @@ export default function PencarianSiswa() {
   };
 
   return (
-    <div className="p-6 bg-white rounded-2xl shadow-md dark:bg-gray-900">
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Pencarian Siswa</h3>
-      <p className="text-gray-500 text-sm mb-4">Masukkan nama siswa untuk mencari data</p>
+    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 pb-6 pt-4 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6">
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+        Pencarian Siswa
+      </h3>
+      <p className="text-gray-500 text-sm mb-4">
+        Masukkan nama siswa untuk mencari data
+      </p>
 
       <input
         type="text"
@@ -91,14 +113,26 @@ export default function PencarianSiswa() {
 
       {hasil.length > 0 && (
         <div className="mt-4">
-          <h3 className="text-lg font-semibold dark:text-white">Hasil Pencarian</h3>
+          <h3 className="text-lg font-semibold dark:text-white">
+            Hasil Pencarian
+          </h3>
           <ul className="mt-2 space-y-2">
             {hasil.map((siswa) => (
-              <li key={siswa.id} className="border rounded-lg p-3 cursor-pointer transition-all">
+              <li
+                key={siswa.id}
+                className="border rounded-lg p-3 cursor-pointer transition-all"
+              >
                 <div
-                  className={`flex justify-between items-center p-2 rounded-lg ${selectedSiswa?.id === siswa.id ? "bg-blue-200 text-blue-800 dark:bg-gray-800" : "hover:bg-blue-100 dark:hover:bg-gray-800"
-                    }`}
-                  onClick={() => setSelectedSiswa(selectedSiswa?.id === siswa.id ? null : siswa)}
+                  className={`flex justify-between items-center p-2 rounded-lg ${
+                    selectedSiswa?.id === siswa.id
+                      ? "bg-blue-200 text-blue-800 dark:bg-gray-800"
+                      : "hover:bg-blue-100 dark:hover:bg-gray-800"
+                  }`}
+                  onClick={() =>
+                    setSelectedSiswa(
+                      selectedSiswa?.id === siswa.id ? null : siswa
+                    )
+                  }
                 >
                   <span className="font-semibold dark:text-white">
                     {siswa.nama} - {siswa.kelas}
@@ -107,20 +141,28 @@ export default function PencarianSiswa() {
 
                 {selectedSiswa?.id === siswa.id && (
                   <div className="mt-2 p-4 border rounded-lg bg-gray-50 dark:bg-gray-800">
-                    <h3 className="text-lg font-semibold mb-2 dark:text-white">Buat Surat Pembinaan</h3>
-                    <label className="block mb-2 dark:text-white">Jenis Pelanggaran:</label>
+                    <h3 className="text-lg font-semibold mb-2 dark:text-white">
+                      Buat Surat Pembinaan
+                    </h3>
+                    <label className="block mb-2 dark:text-white">
+                      Jenis Pelanggaran:
+                    </label>
                     <div className="flex flex-col md:flex-row gap-3 mb-2 dark:text-white">
-                      {["Keterlambatan", "Ketertiban", "Penampilan"].map((item) => (
-                        <label key={item} className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="jenisPelanggaran"
-                            value={item}
-                            onChange={(e) => setJenisPelanggaran(e.target.value)}
-                          />
-                          {item}
-                        </label>
-                      ))}
+                      {["Keterlambatan", "Ketertiban", "Penampilan"].map(
+                        (item) => (
+                          <label key={item} className="flex items-center gap-2">
+                            <input
+                              type="radio"
+                              name="jenisPelanggaran"
+                              value={item}
+                              onChange={(e) =>
+                                setJenisPelanggaran(e.target.value)
+                              }
+                            />
+                            {item}
+                          </label>
+                        )
+                      )}
                     </div>
                     <input
                       type="text"
@@ -139,8 +181,8 @@ export default function PencarianSiswa() {
                       className="mt-3 w-full bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-lg transition-all"
                       onClick={cekSP}
                       onMouseEnter={(e) =>
-                      ((e.target as HTMLButtonElement).style.cursor =
-                        "pointer")
+                        ((e.target as HTMLButtonElement).style.cursor =
+                          "pointer")
                       }
                     >
                       Cek Jumlah SP
