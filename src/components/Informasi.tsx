@@ -29,7 +29,7 @@ export default function Informasi() {
       </p>
       <p className="text-gray-700 dark:text-gray-300 text-sm mt-2">
         📌 Catatan: Pengumpulan data di website ini telah dimulai sejak{" "}
-        <span className="font-semibold">12 Februari 2024</span>.
+        <span className="font-semibold">12 Februari 2025</span>.
       </p>
     </div>
   );
